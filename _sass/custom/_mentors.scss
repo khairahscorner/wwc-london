@@ -219,13 +219,10 @@
     @extend .container;
 
     .mentor-total-description {
-        @extend .my-4;
-        @extend .h5;
-        @extend .font-weight-bold; 
+        @extend .my-4, .h5, .font-weight-bold; 
 
         span {
-        @extend .text-primary;
-        @extend .font-italic;
+        @extend .text-primary, .font-italic;
         }
     }
 
