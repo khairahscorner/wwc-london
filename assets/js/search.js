@@ -1,13 +1,13 @@
 const controllerSearch = (function(jQuery) {
-    const MENTOR_TYPE_BOTH = "both";
-    const HIDE_CLASS = "d-none";
-    const MENTOR_CARD = "#mentor-card-";
-    const MENTOR_CARD_HIDDEN = ".card.d-none";
-    const DEACTIVATED_MENTOR = ".inactive-mentor";
+    const MENTOR_TYPE_BOTH = 'both';
+    const HIDE_CLASS = 'd-none';
+    const MENTOR_CARD = '#mentor-card-';
+    const MENTOR_CARD_HIDDEN = '.card.d-none';
+    const DEACTIVATED_MENTOR = '.inactive-mentor';
     const Filter = {
-        KEYWORDS: "keywords",
-        EXPERIENCE: "exp",
-        TYPE: "type"
+        KEYWORDS: 'keywords',
+        EXPERIENCE: 'exp',
+        TYPE: 'type'
     }
 
     const filterInputMap = new Map([
@@ -17,20 +17,20 @@ const controllerSearch = (function(jQuery) {
       ]);
 
     const params = new URLSearchParams(window.location.search);
-    const totalMentors = jQuery(".card").length + jQuery(DEACTIVATED_MENTOR).length;
-    const activeMentors = jQuery(".card").length;
+    const totalMentors = jQuery('.card').length + jQuery(DEACTIVATED_MENTOR).length;
+    const activeMentors = jQuery('.card').length;
     let filteredMentors = 0;
 
-    const $keywords = jQuery("#keywords");
-    const $area = jQuery("#area");
-    const $experience = jQuery("#experience");
-    const $focus = jQuery("#focus");
-    const $type = jQuery("#type");
-    const $form = jQuery(".mentor-filter");
-    const $emptyMsg = jQuery("#no-mentors-msg");
-    const $descriptionMsg = jQuery(".description");
-    const $searchBtn = jQuery("#search");
-    const $clearBtn = jQuery("#clear-btn");
+    const $keywords = jQuery('#keywords');
+    const $area = jQuery('#area');
+    const $experience = jQuery('#experience');
+    const $focus = jQuery('#focus');
+    const $type = jQuery('#type');
+    const $form = jQuery('.mentor-filter');
+    const $emptyMsg = jQuery('#no-mentors-msg');
+    const $descriptionMsg = jQuery('.description');
+    const $searchBtn = jQuery('#search');
+    const $clearBtn = jQuery('#clear-btn');
     const $toggleFilterBtn = jQuery('#toggle-filters');
     const $numberOfMentorsDisplay = jQuery('#total-mentors');
     
@@ -102,8 +102,8 @@ const controllerSearch = (function(jQuery) {
         }
 
         if ($experience.val()) {
-            const min = $experience.find(":selected").data("min");
-            const max = $experience.find(":selected").data("max");
+            const min = $experience.find(':selected').data('min');
+            const max = $experience.find(':selected').data('max');
             filters.push(experienceFilter(Filter.EXPERIENCE, $experience.val(), min, max));
         }
 
@@ -126,11 +126,11 @@ const controllerSearch = (function(jQuery) {
         jQuery(MENTOR_CARD_HIDDEN).removeClass(HIDE_CLASS);
         applyMentorsMsg();
 
-        $keywords.val("");
-        $area.val("");
-        $focus.val("");
-        $type.val("");
-        $experience.val("");
+        $keywords.val('');
+        $area.val('');
+        $focus.val('');
+        $type.val('');
+        $experience.val('');
         setNumberOfMentors(activeMentors);
     };
 
@@ -232,8 +232,8 @@ const controllerSearch = (function(jQuery) {
 
         $toggleFilterBtn.click(function() { 
             $clearBtn.toggleClass(HIDE_CLASS);
-            jQuery('#toggle-container').toggleClass("mt-5");
-            jQuery("#filters-container").toggleClass(HIDE_CLASS);
+            jQuery('#toggle-container').toggleClass('mt-5');
+            jQuery('#filters-container').toggleClass(HIDE_CLASS);
         });
     };
 
