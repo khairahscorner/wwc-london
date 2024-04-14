@@ -1,15 +1,18 @@
 const controllerSearch = (function(jQuery) {
+    const MENTOR_TYPE_BOTH = "both";
     const HIDE_CLASS = "d-none";
     const MENTOR_CARD = "#mentor-card-";
     const MENTOR_CARD_HIDDEN = ".card.d-none";
     const DEACTIVATED_MENTOR = ".inactive-mentor";
     const Filter = {
         KEYWORDS: "keywords",
-        EXPERIENCE: "exp"
+        EXPERIENCE: "exp",
+        TYPE: "type"
     }
 
     const filterInputMap = new Map([
         [Filter.KEYWORDS, " input[name='mentor-data']"],
+        [Filter.TYPE, " input[name='mentor-type']"],
         [Filter.EXPERIENCE, " input[name='exp']"],
       ]);
 
@@ -95,7 +98,7 @@ const controllerSearch = (function(jQuery) {
         }
 
         if ($type.val()) {
-            filters.push(paramToFilter(Filter.KEYWORDS, $type.val()));
+            filters.push(paramToFilter(Filter.TYPE, $type.val()));
         }
 
         if ($experience.val()) {
@@ -169,6 +172,11 @@ const controllerSearch = (function(jQuery) {
                     hasFilter++;
                 }
 
+            } else if (filter.key === Filter.TYPE) {
+                if (isDefined(inputHidden) && (inputHidden.val() === filter.value || inputHidden.val() === MENTOR_TYPE_BOTH)) {
+                    hasFilter++;
+                }
+
             } else {
                 //keywords
                 if (isDefined(inputHidden) && containsFilter(inputHidden, filter.value)) {
@@ -176,7 +184,6 @@ const controllerSearch = (function(jQuery) {
                 }
             }
 
-            
         }
 
         return hasFilter === filters.length;
