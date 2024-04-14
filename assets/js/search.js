@@ -1,4 +1,4 @@
-let controllerSearch = (function(jQuery) {
+const controllerSearch = (function(jQuery) {
     const HIDE_CLASS = "d-none";
     const MENTOR_CARD = "#mentor-card-";
     const MENTOR_CARD_HIDDEN = ".card.d-none";
@@ -8,30 +8,30 @@ let controllerSearch = (function(jQuery) {
         EXPERIENCE: "exp"
     }
 
-    let filterInputMap = new Map([
+    const filterInputMap = new Map([
         [Filter.KEYWORDS, " input[name='mentor-data']"],
         [Filter.EXPERIENCE, " input[name='exp']"],
       ]);
 
-    let params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(window.location.search);
     const totalMentors = jQuery(".card").length + jQuery(DEACTIVATED_MENTOR).length;
     const activeMentors = jQuery(".card").length;
     let filteredMentors = 0;
 
-    let $keywords = jQuery("#keywords");
-    let $area = jQuery("#area");
-    let $experience = jQuery("#experience");
-    let $focus = jQuery("#focus");
-    let $type = jQuery("#type");
-    let $form = jQuery(".mentor-filter");
-    let $emptyMsg = jQuery("#no-mentors-msg");
-    let $descriptionMsg = jQuery(".description");
-    let $searchBtn = jQuery("#search");
-    let $clearBtn = jQuery("#clear-btn");
-    let $toggleFilterBtn = jQuery('#toggle-filters');
+    const $keywords = jQuery("#keywords");
+    const $area = jQuery("#area");
+    const $experience = jQuery("#experience");
+    const $focus = jQuery("#focus");
+    const $type = jQuery("#type");
+    const $form = jQuery(".mentor-filter");
+    const $emptyMsg = jQuery("#no-mentors-msg");
+    const $descriptionMsg = jQuery(".description");
+    const $searchBtn = jQuery("#search");
+    const $clearBtn = jQuery("#clear-btn");
+    const $toggleFilterBtn = jQuery('#toggle-filters');
     const $numberOfMentorsDisplay = jQuery('#total-mentors');
     
-    let showMentorCard = function(index) {
+    const showMentorCard = function(index) {
         jQuery(MENTOR_CARD+index).removeClass(HIDE_CLASS);
 
         if (!$emptyMsg.hasClass(HIDE_CLASS)) {
@@ -39,12 +39,12 @@ let controllerSearch = (function(jQuery) {
         }
     };
 
-    let applyMentorsMsg = function() {
+    const applyMentorsMsg = function() {
         $emptyMsg.addClass(HIDE_CLASS);
         $descriptionMsg.removeClass(HIDE_CLASS);
     };
     
-    let hideMentorCard = function(index) {
+    const hideMentorCard = function(index) {
         jQuery(MENTOR_CARD+index).addClass(HIDE_CLASS);
 
         if ((jQuery(MENTOR_CARD_HIDDEN).length + jQuery(DEACTIVATED_MENTOR).length) === totalMentors && $emptyMsg.hasClass(HIDE_CLASS)) {
@@ -53,14 +53,14 @@ let controllerSearch = (function(jQuery) {
         }
     };
     
-    let paramToFilter = function(key, value) {
+    const paramToFilter = function(key, value) {
         return {
             'key': key,
             'value': value.toLowerCase()
         };
     };
 
-    let experienceFilter = function(key, value, min, max) {
+    const experienceFilter = function(key, value, min, max) {
         return {
             'key': key,
             'value': value.toLowerCase(),
@@ -69,17 +69,17 @@ let controllerSearch = (function(jQuery) {
         };
     };
 
-    let applyKeywordsParam = function() {
-        let keywords = params.get([Filter.KEYWORDS]);
+    const applyKeywordsParam = function() {
+        const keywords = params.get([Filter.KEYWORDS]);
         
         if (keywords) {
-            let filter = paramToFilter(Filter.KEYWORDS, keywords);
+            const filter = paramToFilter(Filter.KEYWORDS, keywords);
             $keywords.val(keywords);
             filterMentors([filter]);
         }
     };
 
-    let applyFilters = function() {
+    const applyFilters = function() {
         let filters = [];
 
         if ($keywords.val()) {
@@ -99,8 +99,8 @@ let controllerSearch = (function(jQuery) {
         }
 
         if ($experience.val()) {
-            let min = $experience.find(":selected").data("min");
-            let max = $experience.find(":selected").data("max");
+            const min = $experience.find(":selected").data("min");
+            const max = $experience.find(":selected").data("max");
             filters.push(experienceFilter(Filter.EXPERIENCE, $experience.val(), min, max));
         }
 
@@ -119,7 +119,7 @@ let controllerSearch = (function(jQuery) {
         filteredMentors = 0;
     }
 
-    let removeFilters = function(){
+    const removeFilters = function(){
         jQuery(MENTOR_CARD_HIDDEN).removeClass(HIDE_CLASS);
         applyMentorsMsg();
 
@@ -131,7 +131,7 @@ let controllerSearch = (function(jQuery) {
         setNumberOfMentors(activeMentors);
     };
 
-    let filterMentors = function(filters) {
+    const filterMentors = function(filters) {
         if (isDefined(filters)) {
             resetFilteredMentors();
             for (let index = 1; index <= totalMentors; index++) {
@@ -141,9 +141,9 @@ let controllerSearch = (function(jQuery) {
         }
     }
 
-    let applyMentorFilters = function(index, filters) {
-        let mentorCardId = MENTOR_CARD+index;
-        let mentor = jQuery(mentorCardId);
+    const applyMentorFilters = function(index, filters) {
+        const mentorCardId = MENTOR_CARD+index;
+        const mentor = jQuery(mentorCardId);
         if (isDefined(mentor)) {
             if (hasFilters(mentorCardId, filters)) {
                 filteredMentors++;
@@ -154,17 +154,17 @@ let controllerSearch = (function(jQuery) {
         }
     };
 
-    let hasFilters = function(mentorCardId, filters) {
+    const hasFilters = function(mentorCardId, filters) {
         let hasFilter = 0;
         for(let i = 0; i < filters.length; i++) {
-            let filter = filters[i];
+            const filter = filters[i];
             // input id example: #mentor-card-9 input[name='bio'] 
-            let inputHiddenId = mentorCardId + filterInputMap.get(filter.key);
-            let inputHidden = jQuery(inputHiddenId);
+            const inputHiddenId = mentorCardId + filterInputMap.get(filter.key);
+            const inputHidden = jQuery(inputHiddenId);
 
             if (filter.key === Filter.EXPERIENCE) {
-                let min = filter.min;
-                let max = filter.max;
+                const min = filter.min;
+                const max = filter.max;
                 if (isDefined(inputHidden) &&  parseInt(inputHidden.val()) >= min && parseInt(inputHidden.val()) <= max) {
                     hasFilter++;
                 }
@@ -182,15 +182,15 @@ let controllerSearch = (function(jQuery) {
         return hasFilter === filters.length;
     }
 
-    let containsFilter = function(input, value){
+    const containsFilter = function(input, value){
         return input.val().indexOf(value) > -1
     };
 
-    let isDefined = function(element) {
+    const isDefined = function(element) {
         return element.length > 0
     };
 
-    let initEvents = function() {
+    const initEvents = function() {
         $keywords.change(function() {
             applyFilters();
         });
@@ -230,7 +230,7 @@ let controllerSearch = (function(jQuery) {
         });
     };
 
-    let init = function() {
+    const init = function() {
         setNumberOfMentors(activeMentors);
         initEvents();
         applyKeywordsParam();
