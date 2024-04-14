@@ -218,6 +218,17 @@
     @extend .mentors;
     @extend .container;
 
+    .mentor-total-desciption {
+        @extend .my-4;
+        @extend .h5;
+        @extend .font-weight-bold; 
+
+        span {
+        @extend .text-primary;
+        @extend .font-italic;
+        }
+    }
+
     .form-group {
         margin-right: 1.5rem;
     }
